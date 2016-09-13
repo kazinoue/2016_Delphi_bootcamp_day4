@@ -123,19 +123,19 @@ procedure TForm1.LocationSensor1LocationChanged(Sender: TObject;
 var
   LocationString: String;
 begin
-	// 計測した緯度経度を Debug 用の Memo に出力する。
+  // 計測した緯度経度を Debug 用の Memo に出力する。
   LocationString := Format( '%2.6f, %2.6f', [NewLocation.Latitude, NewLocation.Longitude] );
   Memo1.Lines.Insert(0,LocationString);
 
-	// 計測した緯度経度を ListBox 内の Latitude, Longitude にも表示する。
+  // 計測した緯度経度を ListBox 内の Latitude, Longitude にも表示する。
   ListBoxItemLatitude.ItemData.Detail  := Format( '%2.6f', [NewLocation.Latitude]  );
   ListBoxItemLOngitude.ItemData.Detail := Format( '%2.6f', [NewLocation.Longitude] );
 
-	// 地図の現在位置情報を書き換える。
+  // 地図の現在位置情報を書き換える。
   mapCenter := TMapCoordinate.Create( NewLocation.Latitude, NewLocation.Longitude );
   MapView1.Location := mapCenter;
 
-	// 現在の緯度経度に対応する住所を取得するための一連の処理。
+  // 現在の緯度経度に対応する住所を取得するための一連の処理。
   try
     if not Assigned(FGeocoder) then
     begin
@@ -154,7 +154,7 @@ end;
 
 procedure TForm1.SwitchMapViewSwitch(Sender: TObject);
 begin
-	// 衛星画像と通常地図の切り替えを行う
+  // 衛星画像と通常地図の切り替えを行う
   if( SwitchMapView.IsChecked ) then
     MapView1.MapType := TMapType.Satellite
   else
@@ -164,36 +164,36 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 var
-	// 加速度。
-	syntheticAccel: double;
+  // 加速度。
+  syntheticAccel: double;
 
   // X,Y,Z軸の加速度。
-	AccelX: double;
-	AccelY: double;
-	AccelZ: double;
+  AccelX: double;
+  AccelY: double;
+  AccelZ: double;
 
   // 円が画面外に出ているかどうかのフラグ
   outOfGrid: boolean;
 begin
   begin
-		// x,y,z軸の加速度を取得する。
+    // x,y,z軸の加速度を取得する。
     AccelX := MotionSensor1.Sensor.AccelerationX * accelCoefficient;
     AccelY := MotionSensor1.Sensor.AccelerationY * accelCoefficient;
     AccelZ := MotionSensor1.Sensor.AccelerationZ * accelCoefficient;
 
-		// 3軸の合成加速度を算出する。
-		// これは加速度ベクトルの大きさ（スカラー成分）だけを取り出す処理。
-		// 3軸の加速度が変化しても合成加速度に変化がなければ、
-		// 物体の運動は変化していないと判断できる。
-		syntheticAccel := sqrt( power(AccelX,2) + power(AccelY,2) + power(AccelZ,2) );
+    // 3軸の合成加速度を算出する。
+    // これは加速度ベクトルの大きさ（スカラー成分）だけを取り出す処理。
+    // 3軸の加速度が変化しても合成加速度に変化がなければ、
+    // 物体の運動は変化していないと判断できる。
+    syntheticAccel := sqrt( power(AccelX,2) + power(AccelY,2) + power(AccelZ,2) );
 
-		// 取得した値をラベルに出力する。
-		Label1AccelX.Text := Format( 'X: %3.2f', [ AccelX ] );
-		Label2AccelY.Text := Format( 'Y: %3.2f', [ AccelY ] );
-		Label3AccelZ.Text := Format( 'Z: %3.2f', [ AccelZ ] );
-		LabelSyntheticAccel.Text := Format( 'accel: %3.2f', [ syntheticAccel ] );
+    // 取得した値をラベルに出力する。
+    Label1AccelX.Text := Format( 'X: %3.2f', [ AccelX ] );
+    Label2AccelY.Text := Format( 'Y: %3.2f', [ AccelY ] );
+    Label3AccelZ.Text := Format( 'Z: %3.2f', [ AccelZ ] );
+    LabelSyntheticAccel.Text := Format( 'accel: %3.2f', [ syntheticAccel ] );
 
-		// 加速度の + - によってフォントの色を変える。
+    // 加速度の + - によってフォントの色を変える。
     If( AccelX >= 0 ) then
       Label1AccelX.TextSettings.FontColor := TAlphaColorRec.Black
     else
@@ -209,16 +209,16 @@ begin
     else
       Label3AccelZ.TextSettings.FontColor := TAlphaColorRec.Red;
 
-		// Circle の直径を合成加速度に合わせて変える。
+    // Circle の直径を合成加速度に合わせて変える。
     CircleTiltSensor.Width  := circleDiameter*syntheticAccel/accelCoefficient;
     CircleTiltSensor.Height := CircleTiltSensor.Width;
 
-		// Circle を x, y 軸の加速度の値に合わせて Grid に重ねて表示する。
-		CircleTiltSensor.Position.X := ((PlotGrid1.Width  - CircleTiltSensor.Width )/2.0) - (AccelX*10.0);
-		CircleTiltSensor.Position.Y := ((PlotGrid1.Height - CircleTiltSensor.Height)/2.0) + (AccelY*10.0);
+    // Circle を x, y 軸の加速度の値に合わせて Grid に重ねて表示する。
+    CircleTiltSensor.Position.X := ((PlotGrid1.Width  - CircleTiltSensor.Width )/2.0) - (AccelX*10.0);
+    CircleTiltSensor.Position.Y := ((PlotGrid1.Height - CircleTiltSensor.Height)/2.0) + (AccelY*10.0);
     
-		// Circle の計算上の位置が画面の外にはみ出しそうな場合は、
-		// はみ出さないように計算結果を補正する。
+    // Circle の計算上の位置が画面の外にはみ出しそうな場合は、
+    // はみ出さないように計算結果を補正する。
     outOfGrid := false;
 
     if (CircleTiltSensor.Position.X < 0) then begin
@@ -245,7 +245,7 @@ begin
       CircleTiltSensor.Stroke.Color := TAlphaColorRec.Black;
   end;
 
- 	// グラフ描画に関する処理。
+  // グラフ描画に関する処理。
   begin
 
     if ( graphScroll = true ) then
@@ -282,7 +282,7 @@ end;
 // 逆ジオコーディング実行時の処理
 procedure TForm1.OnGeocodeReverseEvent( const Address: TCivicAddress );
 begin
-	// 緯度経度から現在位置の住所が取得できた場合は表示を更新する。
+  // 緯度経度から現在位置の住所が取得できた場合は表示を更新する。
   ListBoxItemAdminArea.ItemData.Detail       := Address.AdminArea;
   ListBoxItemCountryCode.ItemData.Detail     := Address.CountryCode;
   ListBoxItemCountryName.ItemData.Detail     := Address.CountryName;

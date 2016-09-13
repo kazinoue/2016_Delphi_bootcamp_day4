@@ -56,7 +56,7 @@ end;
 // 逆ジオコーディング実行時の処理
 procedure TForm1.OnGeocodeReverseEvent( const Address: TCivicAddress );
 begin
-	// 緯度経度から現在位置の住所が取得できた場合は表示を更新する。
+  // 緯度経度から現在位置の住所が取得できた場合は表示を更新する。
   Memo1.Lines.Insert(0,Address.AdminArea);
   Memo1.Lines.Insert(0,Address.CountryCode);
   Memo1.Lines.Insert(0,Address.CountryName);

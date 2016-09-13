@@ -33,6 +33,7 @@ implementation
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
+  // 加速度センサーの測定値を TMemo に書き出す。
   Memo1.Lines.Insert(0,
     Format('X:%1.4f Y:%1.4f, Z:%1.4f',
       [
@@ -43,6 +44,7 @@ begin
     )
   );
 
+  // 加速度センサーの測定値を TChart でグラフ描画する。
   Chart1.Series[0].AddY(MotionSensor1.Sensor.AccelerationX);
   Chart1.Series[1].AddY(MotionSensor1.Sensor.AccelerationY);
   Chart1.Series[2].AddY(MotionSensor1.Sensor.AccelerationZ);
