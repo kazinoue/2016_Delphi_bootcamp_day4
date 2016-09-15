@@ -5,9 +5,9 @@
     </ProjectExtensions>
     <PropertyGroup>
         <DeviceId Condition="'$(Platform)'=='Android'"/>
-        <DeviceId Condition="'$(Platform)'=='iOSDevice32'">1e582614cc8ab2ced138e233b40ba55993687afc</DeviceId>
-        <DeviceId Condition="'$(Platform)'=='iOSDevice64'">1e582614cc8ab2ced138e233b40ba55993687afc</DeviceId>
-        <DeviceId Condition="'$(Platform)'=='iOSSimulator'">806330E4-E687-49D0-95D1-7ADCC849809B</DeviceId>
+        <DeviceId Condition="'$(Platform)'=='iOSDevice32'">b0e51a7aaada954abfde2910a05458e2040f0395</DeviceId>
+        <DeviceId Condition="'$(Platform)'=='iOSDevice64'">b0e51a7aaada954abfde2910a05458e2040f0395</DeviceId>
+        <DeviceId Condition="'$(Platform)'=='iOSSimulator'">iPhone5</DeviceId>
     </PropertyGroup>
     <ItemGroup Condition="'$(Platform)'=='iOSDevice64'">
         <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_LaunchImagePortrait_768x1004.png" Condition="'$(Config)'=='Debug'">
@@ -82,15 +82,6 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_ApplicationIcon_144x144.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>TGeocoder_demo.app\</RemoteDir>
-            <RemoteName>FM_ApplicationIcon_144x144.png</RemoteName>
-            <DeployClass>iPad_AppIcon144</DeployClass>
-            <Operation>0</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-        </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_SpotlightSearchIcon_50x50.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>TGeocoder_demo.app\</RemoteDir>
             <RemoteName>FM_SpotlightSearchIcon_50x50.png</RemoteName>
@@ -104,6 +95,15 @@
             <RemoteDir>TGeocoder_demo.app\</RemoteDir>
             <RemoteName>FM_ApplicationIcon_76x76.png</RemoteName>
             <DeployClass>iPad_AppIcon76</DeployClass>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPad\FM_ApplicationIcon_144x144.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TGeocoder_demo.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_144x144.png</RemoteName>
+            <DeployClass>iPad_AppIcon144</DeployClass>
             <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>

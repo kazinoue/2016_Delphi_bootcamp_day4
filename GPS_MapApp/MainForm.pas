@@ -67,6 +67,7 @@ type
     // 逆ジオコーディングのプロシジャーはコンポーネントに紐づかないため
     // このプロシジャーだけは自分で前方宣言を記述する。
     procedure OnGeocodeReverseEvent( const Address: TCivicAddress );
+    procedure SwitchLocationSensorSwitch(Sender: TObject);
 
   private
     { private 宣言 }
@@ -172,6 +173,13 @@ begin
   except
     ListBoxGroupHeader1Location.Text := 'Geocode service error';
   end;
+end;
+
+procedure TForm1.SwitchLocationSensorSwitch(Sender: TObject);
+begin
+  // スイッチで LocationSensor の値の読み取りを on / off する。
+  // 実際の処理は TTimer の有効化、無効化の切り替え。
+  Timer1.Enabled := SwitchLocationSensor.IsChecked;
 end;
 
 procedure TForm1.SwitchMapViewSwitch(Sender: TObject);

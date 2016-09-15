@@ -5,8 +5,8 @@
     </ProjectExtensions>
     <PropertyGroup>
         <DeviceId Condition="'$(Platform)'=='Android'"/>
-        <DeviceId Condition="'$(Platform)'=='iOSDevice32'">1e582614cc8ab2ced138e233b40ba55993687afc</DeviceId>
-        <DeviceId Condition="'$(Platform)'=='iOSDevice64'">1e582614cc8ab2ced138e233b40ba55993687afc</DeviceId>
+        <DeviceId Condition="'$(Platform)'=='iOSDevice32'">b0e51a7aaada954abfde2910a05458e2040f0395</DeviceId>
+        <DeviceId Condition="'$(Platform)'=='iOSDevice64'">b0e51a7aaada954abfde2910a05458e2040f0395</DeviceId>
         <DeviceId Condition="'$(Platform)'=='iOSSimulator'">iPhone5</DeviceId>
     </PropertyGroup>
     <ItemGroup Condition="'$(Platform)'=='iOSDevice64'">
@@ -64,11 +64,11 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_114x114.png" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>TMotionSensor_demo.app\</RemoteDir>
-            <RemoteName>FM_ApplicationIcon_114x114.png</RemoteName>
-            <DeployClass>iPhone_AppIcon114</DeployClass>
-            <Operation>0</Operation>
+        <DeployFile Include="iOSDevice64\Debug\TMotionSensor_demo.dSYM" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TMotionSensor_demo.app\..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF\</RemoteDir>
+            <RemoteName>TMotionSensor_demo</RemoteName>
+            <DeployClass>ProjectiOSDeviceDebug</DeployClass>
+            <Operation>1</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
@@ -91,11 +91,11 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
-        <DeployFile Include="iOSDevice64\Debug\TMotionSensor_demo.dSYM" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>TMotionSensor_demo.app\..\$(PROJECTNAME).app.dSYM\Contents\Resources\DWARF\</RemoteDir>
-            <RemoteName>TMotionSensor_demo</RemoteName>
-            <DeployClass>ProjectiOSDeviceDebug</DeployClass>
-            <Operation>1</Operation>
+        <DeployFile Include="$(BDS)\bin\Artwork\iOS\iPhone\FM_ApplicationIcon_114x114.png" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>TMotionSensor_demo.app\</RemoteDir>
+            <RemoteName>FM_ApplicationIcon_114x114.png</RemoteName>
+            <DeployClass>iPhone_AppIcon114</DeployClass>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
