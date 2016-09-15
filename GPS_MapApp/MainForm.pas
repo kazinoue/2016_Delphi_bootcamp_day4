@@ -114,6 +114,8 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
   numCount := 0;
 
+  mapCenter := TMapCoordinate.Create( 0, 0 );
+
   // アプリ起動時は必ず MapView を表示する。
   TabControl1.ActiveTab := TabItem1MapView;
 end;
@@ -122,14 +124,34 @@ procedure TForm1.LocationSensor1LocationChanged(Sender: TObject;
   const OldLocation, NewLocation: TLocationCoord2D);
 var
   LocationString: String;
+  distance: double;
 begin
+  // 以前の計測と直近の計測の位置を求める。
+  //
+  // 地球を球体とみなす場合の距離計算近似式（メートル単位）
+  // cf: http://www.orsj.or.jp/archive2/or60-12/or60_12_701.pdf
+  distance := 6371000 * arccos(
+        sin( DegToRad(mapCenter.Latitude) ) * sin( DegToRad(NewLocation.Latitude) ) +
+        cos( DegToRad(mapCenter.Latitude) ) * cos( DegToRad(NewLocation.Latitude) ) * cos( DegToRad(mapCenter.Longitude) - DegToRad(NewLocation.Longitude) ) );
+
+  // 三角関数を使わない近似式の例
+  // 三平方の定理を使う近似です。計算距離が小さめに出ます。
+  // distance := sqrt(
+  //   power(mapCenter.Latitude  - NewLocation.Latitude, 2) +
+  //   power(mapCenter.Longitude - NewLocation.Longitude,2)
+  // ) * 1000;
+
   // 計測した緯度経度を Debug 用の Memo に出力する。
-  LocationString := Format( '%2.6f, %2.6f', [NewLocation.Latitude, NewLocation.Longitude] );
+  LocationString := Format( 'Lat:%2.6f, Lng:%3.6f (dist=%f)', [NewLocation.Latitude, NewLocation.Longitude, distance] );
   Memo1.Lines.Insert(0,LocationString);
+
+  // 前回の位置と今回の位置の距離が10メートル未満なら何もしない。
+  if (distance < 10)  then
+    exit;
 
   // 計測した緯度経度を ListBox 内の Latitude, Longitude にも表示する。
   ListBoxItemLatitude.ItemData.Detail  := Format( '%2.6f', [NewLocation.Latitude]  );
-  ListBoxItemLOngitude.ItemData.Detail := Format( '%2.6f', [NewLocation.Longitude] );
+  ListBoxItemLOngitude.ItemData.Detail := Format( '%3.6f', [NewLocation.Longitude] );
 
   // 地図の現在位置情報を書き換える。
   mapCenter := TMapCoordinate.Create( NewLocation.Latitude, NewLocation.Longitude );

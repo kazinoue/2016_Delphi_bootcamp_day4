@@ -2,29 +2,29 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 480
-  ClientWidth = 640
+  ClientHeight = 497
+  ClientWidth = 309
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   DesignerMasterStyle = 2
   object MapView1: TMapView
     Align = Client
-    Size.Width = 640.000000000000000000
-    Size.Height = 430.000000000000000000
+    Size.Width = 309.000000000000000000
+    Size.Height = 447.000000000000000000
     Size.PlatformDefault = False
     Zoom = 15.000000000000000000
     LayerOptions = [UserLocation]
   end
   object Layout1: TLayout
     Align = Top
-    Size.Width = 640.000000000000000000
+    Size.Width = 309.000000000000000000
     Size.Height = 50.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 2
+    TabOrder = 4
     object Button1: TButton
       Align = Right
-      Position.X = 560.000000000000000000
+      Position.X = 229.000000000000000000
       Size.Width = 80.000000000000000000
       Size.Height = 50.000000000000000000
       Size.PlatformDefault = False
@@ -46,7 +46,7 @@ object Form1: TForm1
   object LocationSensor1: TLocationSensor
     Active = True
     OnLocationChanged = LocationSensor1LocationChanged
-    Left = 304
-    Top = 224
+    Left = 144
+    Top = 232
   end
 end
